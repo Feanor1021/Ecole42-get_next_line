@@ -1,17 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fyardimc <fyardimc@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/07/25 16:56:10 by fyardimc          #+#    #+#             */
+/*   Updated: 2022/07/25 21:12:36 by fyardimc         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-char	*ft_strjoin(char  *s1, char  *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	int		s1_len;
 	int		s2_len;
 	char	*arry;
 
-    if(!s1)
-    {
-        s1 = (char *)malloc(1 * sizeof(char));
+	if (!s1)
+	{
+		s1 = (char *)malloc(1 * sizeof(char));
 		s1[0] = '\0';
-    }
-
+	}
 	if (!s1 || !s2)
 		return (NULL);
 	s1_len = ft_strlen((char *)s1);
@@ -28,10 +39,9 @@ char	*ft_strjoin(char  *s1, char  *s2)
 char	*ft_strchr(const char *s, int c)
 {
 	if (!s)
-	return 0;
-    if (c == '\0')
-    return (char *)&s[ft_strlen((char*)s)]; 
-	
+		return (0);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen((char *)s)]);
 	while ((*s != (char)c) && *s)
 		s++;
 	if (*s == (char)c)
@@ -58,48 +68,45 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	return (src_size);
 }
 
-char *get_line(char *line)
+char	*get_line(char *line)
 {
-	char *end;
-	char *arr;
+	char	*end;
+	char	*arr;
 
-	if (!line)
-		return NULL;
-	end=ft_strchr(line,'\n');
-	if(end == NULL)
+	if (!*line)
+		return (NULL);
+	end = ft_strchr(line, '\n');
+	if (end == NULL)
 	{
-		end = malloc(sizeof(char)*ft_strlen(line)+1);
-		if(!end)
-			return NULL;
-		ft_strlcpy(end,line,ft_strlen(line)+1);
-		return end;
+		end = malloc(sizeof(char) * ft_strlen(line) + 1);
+		if (!end)
+			return (NULL);
+		ft_strlcpy(end, line, ft_strlen(line) + 1);
+		return (end);
 	}
-	arr = malloc(sizeof(char)*(end-line+2));
-	if(!arr)
-		return NULL;
-	ft_strlcpy(arr,line,end-line+2);
-	return arr;
+	arr = malloc(sizeof(char) * (end - line + 2));
+	if (!arr)
+		return (NULL);
+	ft_strlcpy(arr, line, end - line + 2);
+	return (arr);
 }
 
-
-char *skip_next_n(char *line)
+char	*skip_next_n(char *line)
 {
-	char *end;
-	char *arr;
+	char	*end;
+	char	*arr;
 
-	if (!line)
-		return NULL;
-	end=ft_strchr(line,'\n');
-	if(end)
+	end = ft_strchr(line, '\n');
+	if (end)
 	{
 		end++;
-		arr = malloc(sizeof(char)*ft_strlen(end)+1);
-		if(!arr)
-			return NULL;
-		ft_strlcpy(arr,end,ft_strlen(end)+1);
+		arr = malloc(sizeof(char) * ft_strlen(end) + 1);
+		if (!arr)
+			return (NULL);
+		ft_strlcpy(arr, end, ft_strlen(end) + 1);
 		free(line);
-		return arr;
+		return (arr);
 	}
 	free(line);
-	return NULL;
+	return (NULL);
 }
